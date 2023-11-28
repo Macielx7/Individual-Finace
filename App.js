@@ -1,20 +1,40 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { PaperProvider } from 'react-native-paper';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import ReceitasStack from './Screens/Receitas/ReceitasStack';
+import DespesasStack from './Screens/Despesas/DespesasStack';
+
+
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <PaperProvider>
+        <NavigationContainer>
+          <Tab.Navigator initialRouteName='Receitas'>
+            <Tab.Screen
+              name="Receitas" 
+              component={ReceitasStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="cash-multiple" size={26} />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Despesas" 
+              component={DespesasStack}
+              options={{
+                tabBarIcon: () => (
+                  <MaterialCommunityIcons name="hand-coin" size={26} />
+                ),
+              }}
+            />
+          </Tab.Navigator>
+        </NavigationContainer>
+      </PaperProvider>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
